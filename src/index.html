@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abrigo de Animais</title>
+  <style>
+    /* FONTES BONITAS */
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #ffeef6; /* Rosa bebê */
+      color: #444;
+    }
+
+    header {
+      background-color: #ffcce0;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom: 4px solid #ff99c8;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #d63384;
+      margin: 0;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 40px auto;
+      background-color: #fff0f6;
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid #ffb3d9;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 8px;
+      font-weight: 600;
+      color: #d63384;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ffb3d9;
+      background-color: #fff;
+      font-size: 1em;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: #ff80ab;
+      color: white;
+      font-size: 1.1em;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff5c8a;
+    }
+
+    .resultado {
+      margin-top: 30px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #ffb3d9;
+      font-size: 1.1em;
+      color: #444;
+    }
+
+    .resultado strong {
+      color: #d63384;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #aa638a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Abrigo de Animais 💖</h1>
+  </header>
+
+  <main>
+    <label for="pessoa1">Brinquedos da Pessoa 1:</label>
+    <input type="text" id="pessoa1" placeholder="Ex: RATO,BOLA" />
+
+    <label for="pessoa2">Brinquedos da Pessoa 2:</label>
+    <input type="text" id="pessoa2" placeholder="Ex: RATO,NOVELO" />
+
+    <label for="ordem">Ordem dos Animais:</label>
+    <input type="text" id="ordem" placeholder="Ex: Rex,Fofo" />
+
+    <button onclick="executarTeste()">Encontrar Famílias</button>
+
+    <div class="resultado" id="resultado">
+      <strong>Resultado:</strong> Aguardando entrada...
+    </div>
+  </main>
+
+  <footer>
+    Feito com carinho 💗 para os bichinhos
+  </footer>
+
+  <script type="module">
+    import { AbrigoAnimais } from './abrigo-animais.js';
+    const abrigo = new AbrigoAnimais();
+
+    function executarTeste() {
+      const brinquedosPessoa1 = document.getElementById('pessoa1').value;
+      const brinquedosPessoa2 = document.getElementById('pessoa2').value;
+      const ordemAnimais = document.getElementById('ordem').value;
+
+      const resultado = abrigo.encontraPessoas(brinquedosPessoa1, brinquedosPessoa2, ordemAnimais);
+      const resultadoDiv = document.getElementById('resultado');
+
+      if (resultado.erro) {
+        resultadoDiv.innerHTML = `<strong>Erro:</strong> ${resultado.erro}`;
+      } else {
+        resultadoDiv.innerHTML = `<strong>Lista:</strong><br>` + resultado.lista.map(item => `🐾 ${item}`).join('<br>');
+      }
+    }
+
+    window.executarTeste = executarTeste;
+  </script>
+</body>
+</html>
